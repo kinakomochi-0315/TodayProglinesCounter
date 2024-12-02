@@ -1,0 +1,25 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d" d:DesignWidth="400" d:DesignHeight="450"
+        x:Class="TodayProglinesCounter.MainWindow"
+        Width="400"
+        SizeToContent="Height"
+        CanResize="False"
+        TransparencyLevelHint="Mica"
+        Background="Transparent"
+        ExtendClientAreaToDecorationsHint="True"
+        Title="TodayProglinesCounter">
+    <StackPanel Margin="20">
+        <Label Content="今日書いたコード行数："/>
+        <DockPanel>
+            <TextBlock FontWeight="Bold" Name="LinesCountText" FontSize="60" Text="999,999"/>
+            <Label
+                Padding="0 0 0 12"
+                FontSize="24" VerticalAlignment="Bottom"
+                Height="{Binding ElementName=LinesCountText, Path=Height}"
+                Content="行" DockPanel.Dock="Right"/>
+        </DockPanel>
+    </StackPanel>
+</Window>
