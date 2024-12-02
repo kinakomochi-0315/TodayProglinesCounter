@@ -35,7 +35,7 @@ public partial class MainWindow : Window
         var proglines = 0;
         var date = DateTime.Now;
 
-        var commitUrls = await GithubApi.FetchDayAllCommitsAsync(DateTime.Today);
+        var commitUrls = await GithubApi.FetchDayAllCommitsAsync(DateTime.UtcNow.Date);
         var tasks = commitUrls.Select(GithubApi.FetchCommitChangeLineCountsAsync);
 
         var results = await Task.WhenAll(tasks);

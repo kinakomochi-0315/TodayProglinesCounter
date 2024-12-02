@@ -95,8 +95,10 @@ public static class GithubApi
         var events = JArray.Parse(json);
 
         var pushEvents = events
-            .Where(e => e["created_at"]?.Value<DateTime>().Date == day.Date)
-            .Where(e => e["type"]?.ToString() == "PushEvent");
+            .Where(e => e["type"]?.ToString() == "PushEvent")
+            // githubのevent APIは最大6時間の遅延があるため、今日と昨日の18時までのイベントを取得
+            // 6時間ってデカくないですか
+            .Where(e => e["created_at"]?.Value<DateTime>() >= day.Date.AddHours(-6));
 
         var commitUrls =
             (from pushEvent in pushEvents
