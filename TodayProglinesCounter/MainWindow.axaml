@@ -10,7 +10,8 @@
         TransparencyLevelHint="Mica"
         Background="Transparent"
         ExtendClientAreaToDecorationsHint="True"
-        Title="TodayProglinesCounter">
+        Title="TodayProglinesCounter"
+        Loaded="Control_OnLoaded">
     <StackPanel Margin="20">
         <Label Content="今日書いたコード行数："/>
         <DockPanel>

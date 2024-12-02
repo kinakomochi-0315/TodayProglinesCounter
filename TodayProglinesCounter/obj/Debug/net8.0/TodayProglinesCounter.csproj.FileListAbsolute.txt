@@ -65,3 +65,5 @@ C:\Users\riku_\RiderProjects\TodayProglinesCounter\TodayProglinesCounter\obj\Deb
 C:\Users\riku_\RiderProjects\TodayProglinesCounter\TodayProglinesCounter\obj\Debug\net8.0\TodayPro.5E61EFB8.Up2Date
 C:\Users\riku_\RiderProjects\TodayProglinesCounter\TodayProglinesCounter\obj\Debug\net8.0\TodayProglinesCounter.genruntimeconfig.cache
 C:\Users\riku_\RiderProjects\TodayProglinesCounter\TodayProglinesCounter\obj\Debug\net8.0\ref\TodayProglinesCounter.dll
+C:\Users\riku_\RiderProjects\TodayProglinesCounter\TodayProglinesCounter\obj\Debug\net8.0\TodayProglinesCounter.sourcelink.json
+C:\Users\riku_\RiderProjects\TodayProglinesCounter\TodayProglinesCounter\bin\Debug\net8.0\Newtonsoft.Json.dll

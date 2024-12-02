@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("TodayProglinesCounter")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+d7fbde7a5eea7151d63a0cf57c5b72b1a051d298")]
 [assembly: System.Reflection.AssemblyProductAttribute("TodayProglinesCounter")]
 [assembly: System.Reflection.AssemblyTitleAttribute("TodayProglinesCounter")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

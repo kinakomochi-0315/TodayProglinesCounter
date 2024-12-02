@@ -4,6 +4,20 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
         x:Class="TodayProglinesCounter.GithubLogin"
-        Title="GithubLogin">
-    Welcome to Avalonia!
+        SizeToContent="WidthAndHeight"
+        Title="GithubLogin"
+        CanResize="False"
+        TransparencyLevelHint="Mica"
+        Background="Transparent"
+        ExtendClientAreaToDecorationsHint="True">
+    <StackPanel Margin="20">
+        <Label FontSize="24" Margin="20" HorizontalAlignment="Center" Content="github トークンを登録"/>
+        <DockPanel HorizontalAlignment="Center">
+            <TextBox Name="TokenTextBox" Width="600" Watermark="githubのトークンをここにペーストしてください"/>
+            <Button Click="OnGenerateButtonClick" Content="生成" Margin="10 0 0 0 "/>
+        </DockPanel>
+        <Label Name="ErrorLabel" Foreground="OrangeRed">githubトークンの認証に失敗しました。再生成してみてください</Label>
+        <Button Name="RegisterButton" Click="OnRegisterButtonClick" Content="アカウントを登録" Margin="20"
+                HorizontalAlignment="Center"/>
+    </StackPanel>
 </Window>
