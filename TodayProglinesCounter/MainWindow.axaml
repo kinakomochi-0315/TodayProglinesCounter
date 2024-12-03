@@ -27,8 +27,7 @@
             Name="LinesCountDiffText" Margin="0 -12 0 10"
             Content="前日比: +999行" Foreground="MediumSeaGreen" />
         <StackPanel Orientation="Horizontal" Spacing="5">
-            <Button Name="ReloadButton" Content="{ti:TablerIcon IconReload, Width=18, Height=18}"/>
-            <Button Name="SettingsButton" Content="{ti:TablerIcon IconSettings, Width=18, Height=18}"/>
+            <Button Name="ReloadButton" Content="{ti:TablerIcon IconReload, Width=18, Height=18}" Click="ReloadButton_OnClick"/>
         </StackPanel>
     </StackPanel>
 </Window>

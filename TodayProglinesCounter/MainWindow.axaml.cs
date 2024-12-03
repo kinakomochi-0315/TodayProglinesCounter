@@ -40,12 +40,6 @@ public partial class MainWindow : Window
 
     private static async Task<int> GetProglinesAsync(DateTime date)
     {
-        if (GithubApi.IsAuthorized == false)
-        {
-            ShowGithubLoginWindow();
-            return -1;
-        }
-
         var commitUrls = await GithubApi.FetchDayAllCommitsAsync(date);
         var tasks = commitUrls.Select(GithubApi.FetchCommitChangeLineCountsAsync);
 
@@ -61,30 +55,31 @@ public partial class MainWindow : Window
         LinesCountDiffText.Foreground = diff >= 0 ? Brushes.MediumSeaGreen : Brushes.Crimson;
     }
 
-    private async void UpdateProglinesAsync()
+    private async Task UpdateProglinesAsync()
     {
-        while (true)
+        await GithubApi.TryAuthorizeAsync();
+
+        if (GithubApi.IsAuthorized == false)
         {
-            try
-            {
-                var todayTask = GetProglinesAsync(DateTime.UtcNow.Date);
-                var yesterdayTask = GetProglinesAsync(DateTime.UtcNow.Date.AddDays(-1));
-
-                await Task.WhenAll(todayTask, yesterdayTask);
-
-                var todayProglines = todayTask.Result;
-                var yesterdayProglines = yesterdayTask.Result;
-
-                Proglines = todayProglines;
-                SetDiffText(todayProglines * 2 - yesterdayProglines);
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine(e);
-            }
-
-            await Task.Delay(UPDATE_INTERVAL_MS);
+            ShowGithubLoginWindow();
+            return;
         }
+        
+        var todayTask = GetProglinesAsync(DateTime.UtcNow.Date);
+        var yesterdayTask = GetProglinesAsync(DateTime.UtcNow.Date.AddDays(-1));
+
+        await Task.WhenAll(todayTask, yesterdayTask);
+
+        var todayProglines = todayTask.Result;
+        var yesterdayProglines = yesterdayTask.Result;
+
+        Proglines = todayProglines;
+        SetDiffText(todayProglines * 2 - yesterdayProglines);
+    }
+
+    private void UpdateProglinesTask()
+    {
+        UpdateProglinesAsync().ContinueWith(_ => Task.Delay(UPDATE_INTERVAL_MS).ContinueWith(_ => UpdateProglinesTask()));
     }
 
     private async void Control_OnLoaded(object? sender, RoutedEventArgs e)
@@ -99,6 +94,11 @@ public partial class MainWindow : Window
             ShowGithubLoginWindow();
         }
 
-        UpdateProglinesAsync();
+        UpdateProglinesTask();
+    }
+
+    private void ReloadButton_OnClick(object? sender, RoutedEventArgs e)
+    {
+        _ = UpdateProglinesAsync();
     }
 }
