@@ -1,4 +1,5 @@
 using System;
+using System.Diagnostics;
 using System.Linq;
 using System.Runtime.InteropServices;
 using System.Threading.Tasks;
@@ -45,7 +46,7 @@ public partial class MainWindow : Window
             return -1;
         }
 
-        var commitUrls = await GithubApi.FetchDayAllCommitsAsync(DateTime.UtcNow.Date);
+        var commitUrls = await GithubApi.FetchDayAllCommitsAsync(date);
         var tasks = commitUrls.Select(GithubApi.FetchCommitChangeLineCountsAsync);
 
         var results = await Task.WhenAll(tasks);
@@ -56,7 +57,7 @@ public partial class MainWindow : Window
 
     private void SetDiffText(int diff)
     {
-        LinesCountDiffText.Content = $"前日比: {diff:+0;-#}";
+        LinesCountDiffText.Content = $"前日比: {diff:+0;-#}行";
         LinesCountDiffText.Foreground = diff >= 0 ? Brushes.MediumSeaGreen : Brushes.Crimson;
     }
 
@@ -74,10 +75,8 @@ public partial class MainWindow : Window
                 var todayProglines = todayTask.Result;
                 var yesterdayProglines = yesterdayTask.Result;
 
-                if (todayProglines == -1 || yesterdayProglines == -1) continue;
-
                 Proglines = todayProglines;
-                SetDiffText(todayProglines - yesterdayProglines);
+                SetDiffText(todayProglines * 2 - yesterdayProglines);
             }
             catch (Exception e)
             {
