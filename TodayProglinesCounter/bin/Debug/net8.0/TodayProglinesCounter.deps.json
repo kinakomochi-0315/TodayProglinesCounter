@@ -13,7 +13,8 @@
           "Avalonia.Diagnostics": "11.2.1",
           "Avalonia.Fonts.Inter": "11.2.1",
           "Avalonia.Themes.Fluent": "11.2.1",
-          "Newtonsoft.Json": "13.0.3"
+          "Newtonsoft.Json": "13.0.3",
+          "TablerIcons.Avalonia": "3.13.0"
         },
         "runtime": {
           "TodayProglinesCounter.dll": {}
@@ -418,6 +419,17 @@
           }
         }
       },
+      "TablerIcons.Avalonia/3.13.0": {
+        "dependencies": {
+          "Avalonia.Skia": "11.2.1"
+        },
+        "runtime": {
+          "lib/net8.0/TablerIcons.Avalonia.dll": {
+            "assemblyVersion": "3.13.0.0",
+            "fileVersion": "3.13.0.0"
+          }
+        }
+      },
       "Tmds.DBus.Protocol/0.20.0": {
         "dependencies": {
           "System.IO.Pipelines": "8.0.0"
@@ -639,6 +651,13 @@
       "sha512": "sha512-FHNOatmUq0sqJOkTx+UF/9YK1f180cnW5FVqnQMvYUN0elp6wFzbtPSiqbo1/ru8ICp43JM1i7kKkk6GsNGHlA==",
       "path": "system.io.pipelines/8.0.0",
       "hashPath": "system.io.pipelines.8.0.0.nupkg.sha512"
+    },
+    "TablerIcons.Avalonia/3.13.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-OGjmbPbiQP4VncbcaTS0j7hGts0fWpJyfmce7bs+nz5lePY6GqDccF/1StjXdIMlogbMJP5RnklAH9o/KxUCDQ==",
+      "path": "tablericons.avalonia/3.13.0",
+      "hashPath": "tablericons.avalonia.3.13.0.nupkg.sha512"
     },
     "Tmds.DBus.Protocol/0.20.0": {
       "type": "package",

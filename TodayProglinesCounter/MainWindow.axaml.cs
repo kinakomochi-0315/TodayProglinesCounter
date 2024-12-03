@@ -4,11 +4,14 @@ using System.Runtime.InteropServices;
 using System.Threading.Tasks;
 using Avalonia.Controls;
 using Avalonia.Interactivity;
+using Avalonia.Media;
 
 namespace TodayProglinesCounter;
 
 public partial class MainWindow : Window
 {
+    private const int UPDATE_INTERVAL_MS = 300 * 1000;
+
     private int _proglines;
 
     private int Proglines
@@ -27,9 +30,20 @@ public partial class MainWindow : Window
         Proglines = -1;
     }
 
-    private async Task<int> GetProglinesAsync()
+    private static void ShowGithubLoginWindow()
     {
-        if (GithubApi.IsAuthorized == false) return -1;
+        var loginWindow = new GithubLogin();
+        loginWindow.Show();
+    }
+
+
+    private static async Task<int> GetProglinesAsync(DateTime date)
+    {
+        if (GithubApi.IsAuthorized == false)
+        {
+            ShowGithubLoginWindow();
+            return -1;
+        }
 
         var commitUrls = await GithubApi.FetchDayAllCommitsAsync(DateTime.UtcNow.Date);
         var tasks = commitUrls.Select(GithubApi.FetchCommitChangeLineCountsAsync);
@@ -40,20 +54,37 @@ public partial class MainWindow : Window
         return proglines;
     }
 
+    private void SetDiffText(int diff)
+    {
+        LinesCountDiffText.Content = $"前日比: {diff:+0;-#}";
+        LinesCountDiffText.Foreground = diff >= 0 ? Brushes.MediumSeaGreen : Brushes.Crimson;
+    }
+
     private async void UpdateProglinesAsync()
     {
         while (true)
         {
             try
             {
-                Proglines = await GetProglinesAsync();
+                var todayTask = GetProglinesAsync(DateTime.UtcNow.Date);
+                var yesterdayTask = GetProglinesAsync(DateTime.UtcNow.Date.AddDays(-1));
+
+                await Task.WhenAll(todayTask, yesterdayTask);
+
+                var todayProglines = todayTask.Result;
+                var yesterdayProglines = yesterdayTask.Result;
+
+                if (todayProglines == -1 || yesterdayProglines == -1) continue;
+
+                Proglines = todayProglines;
+                SetDiffText(todayProglines - yesterdayProglines);
             }
             catch (Exception e)
             {
                 Console.WriteLine(e);
             }
 
-            await Task.Delay(10000);
+            await Task.Delay(UPDATE_INTERVAL_MS);
         }
     }
 
@@ -66,8 +97,7 @@ public partial class MainWindow : Window
         // トークンが読み込めなかった場合、ログイン画面を表示
         if (GithubApi.IsAuthorized == false)
         {
-            var loginWindow = new GithubLogin();
-            loginWindow.Show();
+            ShowGithubLoginWindow();
         }
 
         UpdateProglinesAsync();

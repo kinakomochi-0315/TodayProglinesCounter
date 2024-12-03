@@ -103,11 +103,11 @@ public static class GithubApi
         var commitUrls =
             (from pushEvent in pushEvents
                 from commit in pushEvent["payload"]?["commits"]
-                select commit["url"]?.ToString()).ToList();
+                select commit["url"]?.ToString()).ToArray();
 
-        Console.WriteLine($"今日のコミット数を取得: {commitUrls.Count}");
+        Console.WriteLine($"今日のコミット数を取得: {commitUrls.Length}");
 
-        return commitUrls.ToArray();
+        return commitUrls;
     }
 
     public static async Task<int> FetchCommitChangeLineCountsAsync(string commitUrl)

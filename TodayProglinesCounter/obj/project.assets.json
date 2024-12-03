@@ -571,6 +571,22 @@
           "buildTransitive/net6.0/_._": {}
         }
       },
+      "TablerIcons.Avalonia/3.13.0": {
+        "type": "package",
+        "dependencies": {
+          "Avalonia.Skia": "11.0.6"
+        },
+        "compile": {
+          "lib/net8.0/TablerIcons.Avalonia.dll": {
+            "related": ".pdb"
+          }
+        },
+        "runtime": {
+          "lib/net8.0/TablerIcons.Avalonia.dll": {
+            "related": ".pdb"
+          }
+        }
+      },
       "Tmds.DBus.Protocol/0.20.0": {
         "type": "package",
         "dependencies": {
@@ -1443,6 +1459,27 @@
         "useSharedDesignerContext.txt"
       ]
     },
+    "TablerIcons.Avalonia/3.13.0": {
+      "sha512": "OGjmbPbiQP4VncbcaTS0j7hGts0fWpJyfmce7bs+nz5lePY6GqDccF/1StjXdIMlogbMJP5RnklAH9o/KxUCDQ==",
+      "type": "package",
+      "path": "tablericons.avalonia/3.13.0",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "LICENSE",
+        "README.md",
+        "lib/net48/TablerIcons.Avalonia.dll",
+        "lib/net48/TablerIcons.Avalonia.pdb",
+        "lib/net6.0/TablerIcons.Avalonia.dll",
+        "lib/net6.0/TablerIcons.Avalonia.pdb",
+        "lib/net7.0/TablerIcons.Avalonia.dll",
+        "lib/net7.0/TablerIcons.Avalonia.pdb",
+        "lib/net8.0/TablerIcons.Avalonia.dll",
+        "lib/net8.0/TablerIcons.Avalonia.pdb",
+        "tablericons.avalonia.3.13.0.nupkg.sha512",
+        "tablericons.avalonia.nuspec"
+      ]
+    },
     "Tmds.DBus.Protocol/0.20.0": {
       "sha512": "2gkt2kuYPhDKd8gtl34jZSJOnn4nRJfFngCDcTZT/uySbK++ua0YQx2418l9Rn1Y4dE5XNq6zG9ZsE5ltLlNNw==",
       "type": "package",
@@ -1466,7 +1503,8 @@
       "Avalonia.Diagnostics >= 11.2.1",
       "Avalonia.Fonts.Inter >= 11.2.1",
       "Avalonia.Themes.Fluent >= 11.2.1",
-      "Newtonsoft.Json >= 13.0.3"
+      "Newtonsoft.Json >= 13.0.3",
+      "TablerIcons.Avalonia >= 3.13.0"
     ]
   },
   "packageFolders": {
@@ -1543,6 +1581,10 @@
           "Newtonsoft.Json": {
             "target": "Package",
             "version": "[13.0.3, )"
+          },
+          "TablerIcons.Avalonia": {
+            "target": "Package",
+            "version": "[3.13.0, )"
           }
         },
         "imports": [

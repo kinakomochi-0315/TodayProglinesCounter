@@ -19,5 +19,6 @@
             <PrivateAssets Condition="'$(Configuration)' != 'Debug'">All</PrivateAssets>
         </PackageReference>
         <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
+        <PackageReference Include="TablerIcons.Avalonia" Version="3.13.0" />
     </ItemGroup>
 </Project>
