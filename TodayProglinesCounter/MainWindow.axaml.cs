@@ -13,11 +13,11 @@ public partial class MainWindow : Window
 {
     private const int UPDATE_INTERVAL_MS = 300 * 1000;
 
+    private readonly GithubLogin _loginWindow = new();
     private int _proglines;
 
     private int Proglines
     {
-        get => _proglines;
         set
         {
             _proglines = value;
@@ -31,10 +31,12 @@ public partial class MainWindow : Window
         Proglines = -1;
     }
 
-    private static void ShowGithubLoginWindow()
+    private void ShowGithubLoginWindow()
     {
-        var loginWindow = new GithubLogin();
-        loginWindow.Show();
+        if (!_loginWindow.IsActive)
+        {
+            _loginWindow.Show();
+        }
     }
 
 
