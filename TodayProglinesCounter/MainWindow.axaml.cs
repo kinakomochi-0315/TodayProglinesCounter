@@ -1,7 +1,6 @@
 using System;
 using System.Linq;
 using System.Runtime.InteropServices;
-using System.Threading;
 using System.Threading.Tasks;
 using Avalonia.Controls;
 using Avalonia.Interactivity;
@@ -10,7 +9,6 @@ namespace TodayProglinesCounter;
 
 public partial class MainWindow : Window
 {
-    private readonly CancellationTokenSource _cts = new();
     private int _proglines;
 
     private int Proglines
@@ -26,20 +24,18 @@ public partial class MainWindow : Window
     public MainWindow()
     {
         InitializeComponent();
+        Proglines = -1;
     }
 
     private async Task<int> GetProglinesAsync()
     {
         if (GithubApi.IsAuthorized == false) return -1;
 
-        var proglines = 0;
-        var date = DateTime.Now;
-
         var commitUrls = await GithubApi.FetchDayAllCommitsAsync(DateTime.UtcNow.Date);
         var tasks = commitUrls.Select(GithubApi.FetchCommitChangeLineCountsAsync);
 
         var results = await Task.WhenAll(tasks);
-        proglines = results.Sum();
+        var proglines = results.Sum();
 
         return proglines;
     }
@@ -48,7 +44,15 @@ public partial class MainWindow : Window
     {
         while (true)
         {
-            Proglines = await GetProglinesAsync();
+            try
+            {
+                Proglines = await GetProglinesAsync();
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+            }
+
             await Task.Delay(10000);
         }
     }
